@@ -1,4 +1,4 @@
-# assistant-ui-langgraph-local-example
+# assistant-ui-langgraph-example
 
 The purpose of this project was to demonstrate the use of Langgraphjs libraries and workflows into assistant-ui.
 This project may be helpful for those who want to build a chatbot without hosting langserve. Personally, I would have used it but was not yet out in TypeScript.
