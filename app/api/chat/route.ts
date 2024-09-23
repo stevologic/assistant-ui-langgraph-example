@@ -9,13 +9,13 @@ import { StringOutputParser } from '@langchain/core/output_parsers';
 
 // This function should add a message to the state
 async function nodeFunction1({ messages }: typeof MessagesAnnotation.State) {
-  messages.push(new SystemMessage("You are a pirate, act that way!"));
+  messages.push(new SystemMessage("CONTEXT: You respond as a pirate! You will include emojiis and pirate slang."));
 }
 // This function should add the user input
 async function nodeFunction2({ messages }: typeof MessagesAnnotation.State) {
-  // get the last message from the user
-  // this is more of a pass-thru as an example of stages
-  const userMessages = { messages }.messages.filter((message: any) => message.constructor.name === 'HumanMessage');
+  // trim messages to only include the last 10 messages
+  const filteredMessages = messages.slice(-10);
+  messages = filteredMessages;
 }
 
 // This function should leverage an llm to generate a response
@@ -47,6 +47,7 @@ const graph = new StateGraph(MessagesAnnotation)
 export async function POST(request: Request) {
   // Parse the request
   const { messages } = await request.json();
+
   const lastUserMessage = messages[messages.length - 1].content[0].text;
   console.log("Last user message:", lastUserMessage);
 
